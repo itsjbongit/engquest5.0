@@ -176,7 +176,7 @@ export function Countdown() {
           </div>
         </div>
         <p className="mt-10 text-center text-sm text-white/50 font-display tracking-wider">
-          ENGQUEST 5.0 · SoE TechFest · JNU
+          ENGQUEST 5.0 · SoE TechFest · JNU Delhi
         </p>
       </div>
     </section>

@@ -2,8 +2,8 @@ import type { Festival } from "./types";
 
 // Official values come from the supplied poster. Items marked PLACEHOLDER are creative direction, not organizer copy.
 export const festival: Festival = {
-  name: "ENGQUEST", edition: "5.0", year: 2026, subtitle: "SoE TechFest",
-  school: "School of Engineering", university: "Jawaharlal Nehru University",
+  name: "ENGQUEST", edition: "5.0", year: 2026, subtitle: "Technical Fest",
+  school: "School of Engineering", university: "Jawaharlal Nehru University Delhi",
   tagline: "THE QUEST BEGINS", // PLACEHOLDER: replace with the organizers' tagline
   date: "1st October, 2026", hours: "10:00 AM – 07:30 PM",
   venue: "Engineering Lecture Complex (ELC), JNU", address: "New Delhi – 110067",
