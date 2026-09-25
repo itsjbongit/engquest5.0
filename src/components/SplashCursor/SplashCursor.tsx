@@ -1,6 +1,6 @@
 // @ts-nocheck
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function SplashCursor({
   SIM_RESOLUTION = 128,
@@ -22,8 +22,18 @@ function SplashCursor({
 }) {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(pointer: fine)');
+    const update = () => setEnabled(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -1057,7 +1067,9 @@ function SplashCursor({
       window.removeEventListener('touchend', handleTouchEnd);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <div

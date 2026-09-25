@@ -52,7 +52,7 @@ export function EventSpiral({ events }: { events: EventItem[] }) {
             pauseOnHover
           />
         </div>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex justify-center md:hidden">
           <a href="#contact" className="border border-volt px-5 py-3 font-display text-sm">Next section</a>
         </div>
       </div>
