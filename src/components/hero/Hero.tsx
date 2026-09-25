@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { festival as f } from "@/content/festival";
 import { GoToBottom } from "@/components/ui/ScrollButtons";
-import SoftAurora from "@/components/event-spiral/SoftAurora/SoftAurora";
+import Particles from "./Particles/Particles";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,12 +49,15 @@ export function Hero() {
         style={{ background: "radial-gradient(60% 45% at 50% 40%, #061827 0%, #000 70%)" }}>
         <div aria-hidden className={`pointer-events-none absolute inset-0 transition-opacity duration-1000 ${motionOK ? "opacity-100" : "opacity-0"}`} style={{ zIndex: -1 }}>
           {motionOK && (
-            <SoftAurora
-              speed={0.6}
-              brightness={0.8}
-              color1="#9fdcff"
-              color2="#00a8ff"
-              enableMouseInteraction={false}
+            <Particles
+              particleColors={["#00a8ff", "#ffffff", "#9fdcff"]}
+              particleCount={200}
+              particleSpread={10}
+              speed={0.1}
+              particleBaseSize={100}
+              moveParticlesOnHover={false}
+              alphaParticles={false}
+              disableRotation={false}
             />
           )}
         </div>
