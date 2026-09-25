@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@theme inline {
+  --color-ink: #000; --color-deep: #061827; --color-volt: #00a8ff;
+  --font-display: var(--f-display); --font-body: var(--f-body);
+}
+html { background: #000; color: #fff; }
+body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid #00a8ff; outline-offset: 3px; }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* Event world: a cylinder of faces; --w/--r are set from JS to fit the viewport */
+.world { --w: 260px; --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden; }
+.ring { transform-style: preserve-3d; }
+.slot {
+  position: absolute; left: 50%; top: 50%; width: var(--w); height: calc(var(--w) * 1.35);
+  margin: calc(var(--w) * -0.675) 0 0 calc(var(--w) * -0.5);
+  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+  backface-visibility: hidden;
+}
+@keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.98); } }
+.rise { animation: rise .45s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) {
+  .world { height: auto; perspective: none; overflow: visible; }
+  .ring { position: static !important; transform: none !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; padding: 1rem; }
+  .slot { position: static; margin: 0; width: auto; height: auto; aspect-ratio: 1 / 1.35; transform: none; }
+  .rise { animation: none; }
+}
