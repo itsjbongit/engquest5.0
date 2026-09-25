@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import InfiniteSpiral from "./InfiniteSpiral";
-import SoftAurora from "./SoftAurora/SoftAurora";
+import Aurora from "@/components/hero/Aurora/Aurora";
 import type { EventItem } from "@/content/types";
 
 export function EventSpiral({ events }: { events: EventItem[] }) {
@@ -23,12 +23,11 @@ export function EventSpiral({ events }: { events: EventItem[] }) {
     <section id="event-index" aria-labelledby="event-index-h" className="relative overflow-hidden px-6 py-24 md:px-16">
       {motionOK && (
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <SoftAurora
-            speed={0.6}
-            brightness={0.8}
-            color1="#9fdcff"
-            color2="#00a8ff"
-            enableMouseInteraction={false}
+          <Aurora
+            colorStops={["#7dd7ff", "#00a8ff", "#0b2a3a"]}
+            amplitude={1.0}
+            blend={0.5}
+            speed={0.5}
           />
         </div>
       )}
@@ -52,6 +51,9 @@ export function EventSpiral({ events }: { events: EventItem[] }) {
             cardsPerTurn={7}
             pauseOnHover
           />
+        </div>
+        <div className="mt-8 flex justify-center">
+          <a href="#contact" className="border border-volt px-5 py-3 font-display text-sm">Next section</a>
         </div>
       </div>
     </section>

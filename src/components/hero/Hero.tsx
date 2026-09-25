@@ -1,10 +1,11 @@
 "use client";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { festival as f } from "@/content/festival";
 import { GoToBottom } from "@/components/ui/ScrollButtons";
+import SoftAurora from "@/components/event-spiral/SoftAurora/SoftAurora";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +13,15 @@ const traces = ["M60 185H105L120 170H150", "M55 210H95L112 226H145", "M75 240H12
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
+  const [motionOK, setMotionOK] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setMotionOK(!mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useLayoutEffect(() => {
     const el = root.current!;
@@ -37,6 +47,17 @@ export function Hero() {
     <div ref={root} className="h-[300svh] motion-reduce:h-auto">
       <section aria-label="ENGQUEST 5.0" className="sticky top-0 flex h-svh flex-col items-center justify-center gap-6 px-6 text-center motion-reduce:static motion-reduce:min-h-svh"
         style={{ background: "radial-gradient(60% 45% at 50% 40%, #061827 0%, #000 70%)" }}>
+        <div aria-hidden className={`pointer-events-none absolute inset-0 transition-opacity duration-1000 ${motionOK ? "opacity-100" : "opacity-0"}`} style={{ zIndex: -1 }}>
+          {motionOK && (
+            <SoftAurora
+              speed={0.6}
+              brightness={0.8}
+              color1="#9fdcff"
+              color2="#00a8ff"
+              enableMouseInteraction={false}
+            />
+          )}
+        </div>
         <div className="relative aspect-square w-[min(80vmin,440px)] sm:w-[min(58vmin,440px)]">
           {/* Abstract build-up: draws in on scroll, then hands off to the real logo below */}
           <svg viewBox="0 0 400 400" className="vector-mark absolute inset-0 size-full motion-reduce:hidden" fill="none" aria-hidden>

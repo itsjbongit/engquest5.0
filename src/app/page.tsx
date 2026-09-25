@@ -19,8 +19,8 @@ export default function Page() {
         <Intro />
         <Countdown />
         <EventWorld events={events} />
-        <ContactSection />
         <EventSpiral events={events} />
+        <ContactSection />
       </main>
       <Footer />
       <GoToTop />
