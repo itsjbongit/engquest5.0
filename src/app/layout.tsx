@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Chakra_Petch, IBM_Plex_Sans } from "next/font/google";
 import { festival as f } from "@/content/festival";
 import SplashCursor from "@/components/SplashCursor/SplashCursor";
+import { ScrollSetup } from "@/components/ui/ScrollSetup";
 import "./globals.css";
 
 const display = Chakra_Petch({ subsets: ["latin"], weight: ["500", "700"], variable: "--f-display" });
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body>
+        <ScrollSetup />
         {children}
         <SplashCursor COLOR="#6705c5" />
       </body>
