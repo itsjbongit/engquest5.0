@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import StarBorder from "@/components/ui/StarBorder/StarBorder";
 import type { EventItem } from "@/content/types";
 
 interface Props { event: EventItem; index: number; total: number; onOpen: (e: EventItem) => void }
@@ -24,8 +25,9 @@ export function EventCard({ event, index, total, onOpen }: Props) {
   const [failed, setFailed] = useState(false);
   const showPoster = event.poster && !failed;
   return (
-    <button type="button" data-face data-lit="false" onClick={() => onOpen(event)} aria-label={`View event: ${event.name}`}
-      className="relative block size-full overflow-hidden bg-deep text-left will-change-transform">
+    <StarBorder as="button" type="button" data-face data-lit="false" onClick={() => onOpen(event)} aria-label={`View event: ${event.name}`}
+      className="star-border-card block size-full text-left will-change-transform"
+      color="#00a8ff" thickness={1} backgroundColor="#061827" textColor="#ffffff" borderColor="transparent">
       <span className="absolute inset-0 flex flex-col p-3">
         <span className="flex items-baseline justify-between font-display text-[10px] tracking-[0.2em] text-volt/90">
           <span>{num(index)} / {total}</span>
@@ -49,6 +51,6 @@ export function EventCard({ event, index, total, onOpen }: Props) {
       </span>
       <Corners />
       <span aria-hidden className="face-glow pointer-events-none absolute inset-0" />
-    </button>
+    </StarBorder>
   );
 }

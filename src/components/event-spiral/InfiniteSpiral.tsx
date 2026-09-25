@@ -1,6 +1,7 @@
 // @ts-nocheck
 'use client';
 import { useEffect, useMemo, useRef } from 'react';
+import StarBorder from '@/components/ui/StarBorder/StarBorder';
 import './InfiniteSpiral.css';
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -260,28 +261,38 @@ const InfiniteSpiral = ({
               role="listitem"
               aria-label={item.label ?? item.alt}
             >
-              {item.src ? (
-                <img
-                  className="infinite-spiral__image"
-                  src={item.src}
-                  alt={item.alt}
-                  loading={index < 6 ? 'eager' : 'lazy'}
-                  draggable={false}
-                  style={{
-                    width: cardWidth,
-                    height: cardHeight,
-                    maxWidth: 'none',
-                    maxHeight: 'none',
-                    objectFit: imageFit,
-                    filter: `grayscale(${Math.min(1, Math.max(0, grayscale))})`
-                  }}
-                />
-              ) : (
-                <span className="infinite-spiral__fallback" aria-hidden="true">
-                  <span className="infinite-spiral__fallback-code">{item.code}</span>
-                  <span className="infinite-spiral__fallback-name">{item.label ?? item.alt}</span>
-                </span>
-              )}
+              <StarBorder
+                as="div"
+                className="star-border-card"
+                color="#00a8ff"
+                thickness={1}
+                backgroundColor="#061827"
+                textColor="#ffffff"
+                borderColor="transparent"
+              >
+                {item.src ? (
+                  <img
+                    className="infinite-spiral__image"
+                    src={item.src}
+                    alt={item.alt}
+                    loading={index < 6 ? 'eager' : 'lazy'}
+                    draggable={false}
+                    style={{
+                      width: cardWidth,
+                      height: cardHeight,
+                      maxWidth: 'none',
+                      maxHeight: 'none',
+                      objectFit: imageFit,
+                      filter: `grayscale(${Math.min(1, Math.max(0, grayscale))})`
+                    }}
+                  />
+                ) : (
+                  <span className="infinite-spiral__fallback" aria-hidden="true">
+                    <span className="infinite-spiral__fallback-code">{item.code}</span>
+                    <span className="infinite-spiral__fallback-name">{item.label ?? item.alt}</span>
+                  </span>
+                )}
+              </StarBorder>
             </Card>
           );
         })}
