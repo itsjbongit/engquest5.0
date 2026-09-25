@@ -25,9 +25,6 @@ export function EventSpiral({ events }: { events: EventItem[] }) {
             grayscale={false}
           />
         </div>
-        <div className="mt-8 flex justify-center md:hidden">
-          <a href="#contact" className="border border-volt px-5 py-3 font-display text-sm">Next section</a>
-        </div>
       </div>
     </section>
   );

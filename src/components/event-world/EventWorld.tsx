@@ -74,7 +74,7 @@ export function EventWorld({ events }: { events: EventItem[] }) {
       </div>
       <div className="caption z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
         <p aria-live="polite" className="font-display text-xl text-white/90">{events[active]?.name}</p>
-        <a href="#event-index" className="border border-volt px-5 py-3 font-display text-sm">Skip</a>
+        <a href="#event-index" className="mt-4 border border-volt px-5 py-3 font-display text-sm">Skip</a>
       </div>
       {open && <EventDetail event={open} festival={festival} onClose={close} />}
     </section>
