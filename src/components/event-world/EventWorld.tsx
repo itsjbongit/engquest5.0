@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function EventWorld({ events }: { events: EventItem[] }) {
   const root = useRef<HTMLElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const head = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState<EventItem | null>(null);
   const close = useCallback(() => setOpen(null), []);
@@ -32,13 +33,22 @@ export function EventWorld({ events }: { events: EventItem[] }) {
       const paint = (pos: number) => {
         faces.forEach((face, i) => {
           const d = Math.min(Math.abs(i - pos), n - Math.abs(i - pos));
-          face.style.opacity = String(Math.max(0.15, 1 - d * 0.28));
-          face.style.transform = d < 0.5 ? "scale(1.08)" : "none";
+          const t = Math.min(d / 2.5, 1);
+          face.style.opacity = String(1 - t * 0.8);
+          face.style.transform = `scale(${(1 + 0.07 * Math.max(0, 1 - d)).toFixed(3)})`;
+          const lit = d < 0.5 ? "true" : "false";
+          if (face.dataset.lit !== lit) face.dataset.lit = lit;
         });
         const a = Math.round(pos) % n;
         if (a !== last) { last = a; setActive(a); }
       };
       paint(0);
+      if (head.current) {
+        gsap.from(head.current, { y: 28, opacity: 0, duration: 0.9, ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 75%", once: true } });
+      }
+      gsap.from(rg, { opacity: 0, y: 48, duration: 1.1, ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 70%", once: true } });
       gsap.to(rg, { rotationY: -((n - 1) * 360) / n, ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: `+=${n * 70}%`, pin: true, scrub: 0.6, onUpdate: (s) => paint(s.progress * (n - 1)) } });
     });
@@ -47,7 +57,14 @@ export function EventWorld({ events }: { events: EventItem[] }) {
 
   return (
     <section ref={root} id="quest" aria-labelledby="quest-h" className="world relative">
-      <h2 id="quest-h" className="absolute inset-x-0 top-16 z-10 text-center font-display text-3xl font-bold md:text-5xl">The Quest</h2>
+      <div aria-hidden className="world-scaffold">
+        <span className="world-axis" />
+        <span className="world-rule top" />
+      </div>
+      <div ref={head} className="absolute inset-x-0 top-24 z-10 px-6 text-center">
+        <p className="font-display text-[11px] tracking-[0.35em] text-volt/80">EVENTS</p>
+        <h2 id="quest-h" className="mt-2 font-display text-3xl font-bold uppercase tracking-wide md:text-5xl">The Quest</h2>
+      </div>
       <div ref={ring} className="ring absolute inset-0">
         {events.map((e, i) => (
           <div key={e.id} className="slot" style={{ "--i": i, "--n": n } as CSSProperties}>

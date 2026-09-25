@@ -9,8 +9,34 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
 .draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
 
 /* Event world: a cylinder of faces; --w/--r are set from JS to fit the viewport */
-.world { --w: 260px; --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden; }
+.world {
+  --w: 260px; --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden;
+  background:
+    radial-gradient(60% 45% at 50% 52%, rgb(0 168 255 / .08), transparent 70%),
+    linear-gradient(rgb(0 168 255 / .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 168 255 / .05) 1px, transparent 1px),
+    #000;
+  background-size: auto, 44px 44px, 44px 44px, auto;
+}
 .ring { transform-style: preserve-3d; }
+.world-scaffold { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.world-axis {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(transparent, rgb(0 168 255 / .12) 30%, rgb(0 168 255 / .12) 70%, transparent);
+}
+.world-rule {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: min(80%, 36rem); height: 9px;
+  background:
+    linear-gradient(rgb(0 168 255 / .16), rgb(0 168 255 / .16)) center / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, rgb(0 168 255 / .22) 0 1px, transparent 1px 16px) center / 100% 9px no-repeat;
+}
+.world-rule.top { top: calc(50% - var(--w) * 0.675 - 1.75rem); }
+.face-glow {
+  opacity: 0; transition: opacity .4s ease;
+  box-shadow: inset 0 0 0 1px rgb(0 168 255 / .6), inset 0 0 18px rgb(0 168 255 / .18);
+}
+[data-lit="true"] .face-glow { opacity: 1; }
 .slot {
   position: absolute; left: 50%; top: 50%; width: var(--w); height: calc(var(--w) * 1.35);
   margin: calc(var(--w) * -0.675) 0 0 calc(var(--w) * -0.5);
