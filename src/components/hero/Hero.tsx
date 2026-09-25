@@ -4,6 +4,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { festival as f } from "@/content/festival";
+import { GoToBottom } from "@/components/ui/ScrollButtons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,6 +69,7 @@ export function Hero() {
             <path d="M2 2l8 8 8-8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
+        <GoToBottom />
       </section>
     </div>
   );

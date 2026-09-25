@@ -17,6 +17,10 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
   transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
   backface-visibility: hidden;
 }
+.caption {
+  position: absolute; left: 0; right: 0;
+  top: min(calc(50% + var(--w) * 0.675 + 1.25rem), calc(100% - 9rem));
+}
 @keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.98); } }
 .rise { animation: rise .45s cubic-bezier(.2,.7,.2,1); }
 @media (prefers-reduced-motion: reduce) {

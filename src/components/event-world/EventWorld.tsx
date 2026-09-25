@@ -55,7 +55,7 @@ export function EventWorld({ events }: { events: EventItem[] }) {
           </div>
         ))}
       </div>
-      <div className="relative z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
+      <div className="caption z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
         <p aria-live="polite" className="font-display text-xl text-white/90">{events[active]?.name}</p>
         <button type="button" onClick={() => setOpen(events[active])} className="border border-volt px-5 py-3 font-display text-sm">View event</button>
       </div>

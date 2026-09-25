@@ -6,6 +6,7 @@ import { EventWorld } from "@/components/event-world/EventWorld";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { Footer } from "@/components/footer/Footer";
 import { events } from "@/content/events";
+import { GoToTop } from "@/components/ui/ScrollButtons";
 
 export default function Page() {
   return (
@@ -20,6 +21,7 @@ export default function Page() {
         <ContactSection />
       </main>
       <Footer />
+      <GoToTop />
     </>
   );
 }
