@@ -85,7 +85,7 @@ export function Hero() {
         <div>
           <h1 className="sr-only">{f.name} {f.edition} · {f.school}, {f.university}</h1>
           <p className="reveal font-display text-lg">{f.year}</p>
-          {f.tagline && <p className="reveal mt-2 font-display text-sm tracking-[0.3em] text-volt">{f.tagline}</p>}
+          {f.tagline && <p className="reveal mt-2 font-display text-sm tracking-[0.3em] text-volt"><span className="block">THE QUEST BEGINS</span><span className="block mt-2">OCTOBER 1st, 2026</span></p>}
         </div>
         <div aria-hidden="true" className="scroll-hint absolute inset-x-0 bottom-8 flex flex-col items-center gap-2 motion-reduce:hidden">
           <span className="font-display text-xs tracking-[0.3em] text-white/50">SCROLL TO CONTINUE</span>

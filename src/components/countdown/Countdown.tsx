@@ -128,7 +128,8 @@ export function Countdown() {
             </svg>
           </div>
           <h2 id="countdown-h" className="font-display text-4xl md:text-6xl font-bold tracking-tight text-volt">
-            THE QUEST BEGINS
+            <span className="block">THE QUEST BEGINS</span>
+            <span className="block mt-3">OCTOBER 1ST</span>
           </h2>
         </div>
       </section>

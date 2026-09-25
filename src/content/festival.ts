@@ -4,8 +4,8 @@ import type { Festival } from "./types";
 export const festival: Festival = {
   name: "ENGQUEST", edition: "5.0", year: 2026, subtitle: "Technical Fest",
   school: "School of Engineering", university: "Jawaharlal Nehru University Delhi",
-  tagline: "THE QUEST BEGINS", // PLACEHOLDER: replace with the organizers' tagline
-  date: "1st October, 2026", hours: "10:00 AM – 07:30 PM",
+  tagline: "THE QUEST BEGINS <span>OCTOBER 1ST</span>", // PLACEHOLDER: replace with the organizers' tagline
+  date: "1st October", hours: "10:00 AM – 07:30 PM",
   venue: "Engineering Lecture Complex (ELC), JNU", address: "New Delhi – 110067",
   patron: { name: "Prof. Santishree Dhulipudi Pandit", role: "Vice-Chancellor, JNU" },
   chairperson: { name: "Prof. Pawan Kumar Kulriya", role: "Dean, SoE" },
