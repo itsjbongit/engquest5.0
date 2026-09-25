@@ -9,7 +9,7 @@ export const festival: Festival = {
   venue: "Engineering Lecture Complex (ELC), JNU", address: "New Delhi – 110067",
   patron: { name: "Prof. Santishree Dhulipudi Pandit", role: "Vice-Chancellor, JNU" },
   chairperson: { name: "Prof. Pawan Kumar Kulriya", role: "Dean, SoE" },
-  logo: "/assets/brand/logo-circular.jpg",
+  logo: "/assets/brand/logo-circular.png",
   copy: { // PLACEHOLDER copy from the creative brief
     introWords: ["Engineering.", "Technology.", "Ideas.", "Exploration."],
     contactHeading: "Lost your direction?",

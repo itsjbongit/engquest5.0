@@ -18,9 +18,10 @@ export function EventWorld({ events }: { events: EventItem[] }) {
   const n = events.length;
 
   useLayoutEffect(() => {
-    const el = root.current!, rg = ring.current!;
-    const w = Math.min(260, window.innerWidth * 0.6);          // narrower faces on phones
-    const r = (w / 2 / Math.tan(Math.PI / n)) * 1.12;          // radius so neighbours don't overlap
+    const el = root.current!;
+    const rg = ring.current!;
+    const w = Math.min(260, window.innerWidth * 0.6);
+    const r = (w / 2 / Math.tan(Math.PI / n)) * 1.12;
     el.style.setProperty("--w", `${w}px`);
     el.style.setProperty("--r", `${r}px`);
     const faces = Array.from(rg.querySelectorAll<HTMLElement>("[data-face]"));
@@ -54,8 +55,8 @@ export function EventWorld({ events }: { events: EventItem[] }) {
           </div>
         ))}
       </div>
-      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-3 px-6 text-center motion-reduce:hidden">
-        <p aria-live="polite" className="font-display text-xl">{events[active]?.name}</p>
+      <div className="relative z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
+        <p aria-live="polite" className="font-display text-xl text-white/90">{events[active]?.name}</p>
         <button type="button" onClick={() => setOpen(events[active])} className="border border-volt px-5 py-3 font-display text-sm">View event</button>
       </div>
       {open && <EventDetail event={open} festival={festival} onClose={close} />}

@@ -17,7 +17,7 @@ export function Intro() {
     return () => mm.revert();
   }, []);
   return (
-    <section ref={root} id="intro" aria-labelledby="intro-h" className="flex min-h-svh items-center px-6 md:px-16">
+    <section ref={root} id="intro" aria-labelledby="intro-h" className="flex items-center px-6 md:px-16 sm:min-h-svh">
       <div>
         <h2 id="intro-h" className="sr-only">About {f.name} {f.edition}</h2>
         <ul className="font-display text-5xl font-bold leading-[1.05] md:text-8xl">

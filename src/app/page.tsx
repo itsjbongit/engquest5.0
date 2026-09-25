@@ -1,6 +1,7 @@
 import { CompassNav } from "@/components/navigation/CompassNav";
 import { Hero } from "@/components/hero/Hero";
 import { Intro } from "@/components/intro/Intro";
+import { Countdown } from "@/components/countdown/Countdown";
 import { EventWorld } from "@/components/event-world/EventWorld";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { Footer } from "@/components/footer/Footer";
@@ -14,6 +15,7 @@ export default function Page() {
       <main id="main">
         <Hero />
         <Intro />
+        <Countdown />
         <EventWorld events={events} />
         <ContactSection />
       </main>
