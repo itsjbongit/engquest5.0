@@ -50,7 +50,7 @@ export function EventWorld({ events }: { events: EventItem[] }) {
       gsap.from(rg, { opacity: 0, y: 48, duration: 1.1, ease: "power2.out",
         scrollTrigger: { trigger: el, start: "top 70%", once: true } });
       gsap.to(rg, { rotationY: -((n - 1) * 360) / n, ease: "none",
-        scrollTrigger: { trigger: el, start: "top top", end: `+=${n * 70}%`, pin: true, scrub: 0.6, onUpdate: (s) => paint(s.progress * (n - 1)) } });
+        scrollTrigger: { trigger: el, start: "top top", end: `+=${n * 70}%`, pin: true, anticipatePin: 1, scrub: 0.6, onUpdate: (s) => paint(s.progress * (n - 1)) } });
     });
     return () => mm.revert();
   }, [n]);
