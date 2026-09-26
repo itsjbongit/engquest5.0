@@ -84,22 +84,137 @@ main.sphere-main {
     translateZ(var(--radius));
 }
 
+/* Animated electric border for every Dome card. */
+@property --electric-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes dome-electric-spin {
+  to {
+    --electric-angle: 360deg;
+  }
+}
+
+@keyframes dome-electric-flicker {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  42% {
+    opacity: 1;
+  }
+  46% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 0.9;
+  }
+}
+
 .item__image {
   position: absolute;
   display: block;
   inset: 10px;
   border-radius: var(--tile-radius, 12px);
-  border: 1px solid rgb(0 168 255 / 0.35);
+  border: 1px solid rgb(0 168 255 / 0.28);
   background: var(--overlay-blur-color, #120f17);
   overflow: hidden;
   backface-visibility: hidden;
-  transition: transform 300ms;
+  transition:
+    transform 300ms,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   pointer-events: auto;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
+  box-shadow:
+    0 0 10px rgb(0 168 255 / 0.22),
+    0 0 24px rgb(0 168 255 / 0.1),
+    inset 0 0 14px rgb(0 168 255 / 0.07);
+}
+
+.item__image::before,
+.item__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--electric-angle, 0deg),
+    transparent 0deg,
+    transparent 250deg,
+    rgb(0 168 255 / 0.35) 285deg,
+    rgb(155 233 255 / 0.9) 320deg,
+    #ffffff 338deg,
+    rgb(0 168 255 / 1) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.item__image::before {
+  animation:
+    dome-electric-spin 3.2s linear infinite,
+    dome-electric-flicker 2.4s ease-in-out infinite;
+}
+
+.item__image::after {
+  filter: blur(6px);
+  opacity: 0.9;
+  animation:
+    dome-electric-spin 3.2s linear infinite,
+    dome-electric-flicker 2.4s ease-in-out infinite;
+}
+
+/* De-sync the current around the dome so it feels alive, not mechanical. */
+.item:nth-child(3n) .item__image::before,
+.item:nth-child(3n) .item__image::after {
+  animation-duration: 2.7s, 1.9s;
+  animation-delay: -0.9s, -0.4s;
+}
+
+.item:nth-child(3n + 1) .item__image::before,
+.item:nth-child(3n + 1) .item__image::after {
+  animation-duration: 3.9s, 2.8s;
+  animation-delay: -1.8s, -1.1s;
+}
+
+.item:nth-child(4n) .item__image::before,
+.item:nth-child(4n) .item__image::after {
+  animation-direction: reverse, normal;
+}
+
+.item__image:hover,
+.item__image:focus-visible {
+  border-color: rgb(155 233 255 / 0.65);
+  box-shadow:
+    0 0 14px rgb(0 168 255 / 0.45),
+    0 0 34px rgb(0 168 255 / 0.22),
+    inset 0 0 18px rgb(0 168 255 / 0.14);
+}
+
+.item__image:hover::after,
+.item__image:focus-visible::after {
+  filter: blur(8px);
+  opacity: 1;
 }
 
 .item__image:focus {
@@ -233,5 +348,16 @@ main.sphere-main {
   .item,
   .item__image {
     transition: none;
+  }
+
+  .item__image::before,
+  .item__image::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .item__image {
+    border: 1px solid rgb(0 168 255 / 0.35);
+    box-shadow: none;
   }
 }
