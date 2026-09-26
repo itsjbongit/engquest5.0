@@ -29,9 +29,8 @@ export function Hero() {
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const $ = (s: string) => el.querySelectorAll(s);
       gsap.timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 0.8 } })
-        .fromTo($(".ring-draw"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, stagger: 0.15, duration: 2, ease: "power2.out" }, 0)
-        .fromTo($(".ticks"), { opacity: 0 }, { opacity: 1, duration: 1 }, 1)
-        .fromTo($(".trace"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, stagger: 0.2, duration: 1.4, ease: "none" }, 2)
+        // — All rings + inner small lines: same soft fade —
+        .fromTo($(".ring-draw, .ticks, .trace"), { opacity: 0 }, { opacity: 1, stagger: 0.15, duration: 1 }, 1)
         .fromTo(".needle", { rotation: -80, svgOrigin: "200 200" }, { rotation: 0, svgOrigin: "200 200", duration: 1.6, ease: "power3.inOut" }, 3)
         .fromTo(".logo-mark", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, 4.2)
         .to(".vector-mark", { opacity: 0, duration: 0.8 }, 4.2)
