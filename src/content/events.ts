@@ -4,9 +4,9 @@ import type { EventItem } from "./types";
 export const events: EventItem[] = [
   { id: "ad-act", name: "AD ACT" },
   { id: "aerius", name: "AERIUS" },
-  { id: "blind-coding", name: "BLIND CODING" },
+  { id: "blind-coding", name: "BLIND CODING", poster: "/assets/events/blind-coding.jpg" },
   { id: "blueprint", name: "BLUEPRINT" },
-  { id: "cold-start", name: "CO.L.D START" },
+  { id: "cold-start", name: "CO.L.D START", poster: "/assets/events/cold-start.jpg", posterPosition: "50% 30%" },
   { id: "core-of-everything", name: "CORE OF EVERYTHING" },
   { id: "gamepop", name: "GAMEPOP" },
   { id: "guesstimate", name: "GUESSTIMATE" },

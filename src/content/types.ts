@@ -7,7 +7,7 @@ export interface Festival {
   copy: { introWords: string[]; contactHeading: string; contactLine: string };
 }
 export interface EventItem {
-  id: string; name: string; category?: string; poster?: string; icon?: string;
+  id: string; name: string; category?: string; poster?: string; posterPosition?: string; icon?: string;
   shortDescription?: string; description?: string; date?: string;
   startTime?: string; endTime?: string; venue?: string; teamSize?: string;
   prize?: string; registrationUrl?: string; rulesUrl?: string; contact?: string;

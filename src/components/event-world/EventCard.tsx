@@ -24,6 +24,12 @@ function Corners() {
 export function EventCard({ event, index, total, onOpen }: Props) {
   const [failed, setFailed] = useState(false);
   const showPoster = event.poster && !failed;
+  // Nudge the Cold Start poster down in the Quest preview so its top content isn't flush/cropped.
+  const isColdStart = event.id === "cold-start";
+  const posterStyle = {
+    objectPosition: event.posterPosition ?? "50% 50%",
+    ...(isColdStart ? { top: "12px" } : null),
+  };
   return (
     <StarBorder as="button" type="button" data-face data-lit="false" onClick={() => onOpen(event)} aria-label={`View event: ${event.name}`}
       className="star-border-card block size-full text-left will-change-transform"
@@ -36,7 +42,7 @@ export function EventCard({ event, index, total, onOpen }: Props) {
         <span className="relative mt-2 min-h-0 flex-1 overflow-hidden"
           style={{ backgroundImage: "linear-gradient(#00a8ff14 1px,transparent 1px),linear-gradient(90deg,#00a8ff14 1px,transparent 1px)", backgroundSize: "24px 24px" }}>
           {showPoster ? (
-            <Image src={event.poster!} alt={`${event.name} poster`} fill sizes="260px" className="object-cover" onError={() => setFailed(true)} />
+            <Image src={event.poster!} alt={`${event.name} poster`} fill sizes="260px" className="object-cover" style={posterStyle} onError={() => setFailed(true)} />
           ) : (
             <span aria-hidden className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <span className="absolute left-1/2 top-1/2 h-px w-5 -translate-x-1/2 -translate-y-1/2 bg-volt/40" />

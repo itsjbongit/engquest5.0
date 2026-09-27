@@ -4,7 +4,7 @@ import type { EventItem } from "@/content/types";
 export function EventSpiral({ events }: { events: EventItem[] }) {
   const items = events.map((e, i) => ({
     id: e.id,
-    src: "",
+    src: e.poster ?? "",
     alt: e.name,
     code: `EQ-${String(i + 1).padStart(2, "0")}`
   }));

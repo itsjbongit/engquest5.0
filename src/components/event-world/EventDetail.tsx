@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { EventItem, Festival } from "@/content/types";
 
 interface Props { event: EventItem; festival: Festival; onClose: () => void }
 
 export function EventDetail({ event: e, festival: f, onClose }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [imgFailed, setImgFailed] = useState(false);
   useEffect(() => {
     closeRef.current?.focus();
     const onKey = (k: KeyboardEvent) => k.key === "Escape" && onClose();
@@ -25,6 +27,18 @@ export function EventDetail({ event: e, festival: f, onClose }: Props) {
       <div className="mx-auto max-w-3xl">
         <button ref={closeRef} type="button" onClick={onClose} className="mb-10 border border-volt px-4 py-3 font-display text-sm">Back to the Quest</button>
         <h2 id="event-h" className="font-display text-4xl font-bold md:text-6xl">{e.name}</h2>
+        {e.poster && !imgFailed && (
+          <div className="relative mt-8 w-full max-w-xl overflow-hidden border border-volt/40">
+            <Image
+              src={e.poster}
+              alt={`${e.name} poster`}
+              width={800}
+              height={1000}
+              className="h-auto w-full object-contain"
+              onError={() => setImgFailed(true)}
+            />
+          </div>
+        )}
         <p className="mt-6 max-w-prose text-lg text-white/80">{text ?? "Details will be announced."}</p>
         <dl className="mt-10 grid gap-x-10 gap-y-5 sm:grid-cols-2">
           {rows.filter(([, v]) => v).map(([k, v]) => (
