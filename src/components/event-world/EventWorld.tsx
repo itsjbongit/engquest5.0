@@ -27,6 +27,8 @@ export function EventWorld({ events }: { events: EventItem[] }) {
     const faces = Array.from(rg.querySelectorAll<HTMLElement>("[data-face]"));
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Re-assert the exact JS-computed offset (CSS already holds the
+      // pre-hydration default so first paint is cylindrical, not flat).
       gsap.set(rg, { z: -r });
       const paint = (pos: number) => {
         faces.forEach((face, i) => {
@@ -68,8 +70,8 @@ export function EventWorld({ events }: { events: EventItem[] }) {
           </div>
         ))}
       </div>
-      <div className="caption z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
-        <a href="#event-index" className="mt-4 border border-volt px-5 py-3 font-display text-sm">Skip</a>
+      <div className="caption z-20 flex flex-col items-center gap-3 px-6 text-center motion-reduce:hidden">
+        <a href="#event-index" className="border border-volt px-5 py-3 font-display text-sm">Skip</a>
       </div>
       {open && <EventDetail event={open} festival={festival} onClose={close} />}
     </section>

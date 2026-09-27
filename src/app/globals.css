@@ -14,7 +14,7 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
 
 /* Event world: a cylinder of faces; --w/--r are set from JS to fit the viewport */
 .world {
-  --w: 260px; --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden;
+  --w: min(260px, 60vw); --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden;
   background:
     radial-gradient(60% 45% at 50% 52%, rgb(0 168 255 / .08), transparent 70%),
     linear-gradient(rgb(0 168 255 / .05) 1px, transparent 1px),
@@ -22,7 +22,13 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
     #000;
   background-size: auto, 44px 44px, 44px 44px, auto;
 }
-.ring { transform-style: preserve-3d; }
+.ring {
+  transform-style: preserve-3d;
+  /* Resting 3D offset in pure CSS so the first paint (before hydration runs
+     gsap.set) is already cylindrical instead of a flat pile of faces.
+     GSAP parses this transform on init and keeps managing z from there. */
+  transform: translateZ(calc(var(--r) * -1));
+}
 .world-scaffold { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .world-axis {
   position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
@@ -49,7 +55,7 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
 }
 .caption {
   position: absolute; left: 0; right: 0;
-  top: min(calc(50% + var(--w) * 0.675 + 1.25rem), calc(100% - 9rem));
+  top: auto; bottom: max(1.5rem, env(safe-area-inset-bottom));
 }
 @keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.98); } }
 .rise { animation: rise .45s cubic-bezier(.2,.7,.2,1); }

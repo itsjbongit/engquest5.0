@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -98,13 +98,18 @@ export function Countdown() {
               </svg>
             </div>
             <div className="flex flex-wrap items-start justify-center gap-4 md:gap-6" role="timer" aria-label="Countdown to ENGQUEST 5.0">
-              {units.map((u) => (
-                <div key={u.key} className="flex flex-col items-center gap-3">
-                  <div className="relative w-24 md:w-28 h-28 md:h-32 rounded-xl bg-black/50 border border-white/10 backdrop-blur-sm flex items-center justify-center">
-                    <span className="font-display text-3xl md:text-4xl font-bold text-white">00</span>
+              {units.map((u, i) => (
+                <Fragment key={u.key}>
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="relative w-24 md:w-28 h-28 md:h-32 rounded-xl bg-black/50 border border-white/10 backdrop-blur-sm flex items-center justify-center">
+                      <span className="font-display text-3xl md:text-4xl font-bold text-white">00</span>
+                    </div>
+                    <span className="font-display text-xs tracking-widest text-volt/70 text-center w-24 md:w-28">{u.label}</span>
                   </div>
-                  <span className="font-display text-xs tracking-widest text-volt/70 text-center w-24 md:w-28">{u.label}</span>
-                </div>
+                  {i < units.length - 1 && (
+                    <span aria-hidden="true" className="font-display text-3xl md:text-4xl font-bold text-white/80 flex h-28 md:h-32 items-center">:</span>
+                  )}
+                </Fragment>
               ))}
             </div>
           </div>
@@ -160,19 +165,24 @@ export function Countdown() {
           </div>
           <div className="flex flex-wrap items-start justify-center gap-4 md:gap-6" role="timer" aria-label="Countdown to ENGQUEST 5.0, October 1st 2026">
             {units.map((u, i) => (
-              <div key={u.key} className="flex flex-col items-center gap-3">
-                <div
-                  ref={(el) => { cardRefs.current[i] = el; }}
-                  className="relative w-24 md:w-28 h-28 md:h-32 rounded-xl bg-black/40 border border-white/10 backdrop-blur-sm flex items-center justify-center group"
-                  style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-                >
-                  <div className="relative z-10" style={{ transformStyle: "preserve-3d" }}>
-                    <span className="font-display text-3xl md:text-4xl font-bold text-white">{pad(time[u.key])}</span>
+              <Fragment key={u.key}>
+                <div className="flex flex-col items-center gap-3">
+                  <div
+                    ref={(el) => { cardRefs.current[i] = el; }}
+                    className="relative w-24 md:w-28 h-28 md:h-32 rounded-xl bg-black/40 border border-white/10 backdrop-blur-sm flex items-center justify-center group"
+                    style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+                  >
+                    <div className="relative z-10" style={{ transformStyle: "preserve-3d" }}>
+                      <span className="font-display text-3xl md:text-4xl font-bold text-white">{pad(time[u.key])}</span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-volt/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-volt/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                  <span className="font-display text-xs tracking-widest text-volt/70 text-center w-24 md:w-28">{u.label}</span>
                 </div>
-                <span className="font-display text-xs tracking-widest text-volt/70 text-center w-24 md:w-28">{u.label}</span>
-              </div>
+                {i < units.length - 1 && (
+                  <span aria-hidden="true" className="font-display text-3xl md:text-4xl font-bold text-white/80 flex h-28 md:h-32 items-center">:</span>
+                )}
+              </Fragment>
             ))}
           </div>
         </div>
