@@ -54,9 +54,10 @@ const vertex = /* glsl */ `
     vec4 mvPos = viewMatrix * mPos;
 
     if (uSizeRandomness == 0.0) {
-      gl_PointSize = uBaseSize;
+      gl_PointSize = min(uBaseSize / max(length(mvPos.xyz), 1.0), uBaseSize * 0.3);
     } else {
-      gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+      float size = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / max(length(mvPos.xyz), 1.0);
+      gl_PointSize = min(size, uBaseSize * 0.3);
     }
 
     gl_Position = projectionMatrix * mvPos;
@@ -95,8 +96,8 @@ const Particles = ({
   moveParticlesOnHover = false,
   particleHoverFactor = 1,
   alphaParticles = false,
-  particleBaseSize = 100,
-  sizeRandomness = 1,
+  particleBaseSize = 40,
+  sizeRandomness = 0.5,
   cameraDistance = 20,
   disableRotation = false,
   pixelRatio = 1,

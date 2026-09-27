@@ -53,7 +53,8 @@ export function Hero() {
               particleCount={200}
               particleSpread={10}
               speed={0.1}
-              particleBaseSize={100}
+              particleBaseSize={40}
+              sizeRandomness={0.5}
               moveParticlesOnHover={false}
               alphaParticles={false}
               disableRotation={false}

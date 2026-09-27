@@ -13,7 +13,6 @@ export function EventWorld({ events }: { events: EventItem[] }) {
   const root = useRef<HTMLElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const head = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
   const [open, setOpen] = useState<EventItem | null>(null);
   const close = useCallback(() => setOpen(null), []);
   const n = events.length;
@@ -29,7 +28,6 @@ export function EventWorld({ events }: { events: EventItem[] }) {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.set(rg, { z: -r });
-      let last = -1;
       const paint = (pos: number) => {
         faces.forEach((face, i) => {
           const d = Math.min(Math.abs(i - pos), n - Math.abs(i - pos));
@@ -39,8 +37,6 @@ export function EventWorld({ events }: { events: EventItem[] }) {
           const lit = d < 0.5 ? "true" : "false";
           if (face.dataset.lit !== lit) face.dataset.lit = lit;
         });
-        const a = Math.round(pos) % n;
-        if (a !== last) { last = a; setActive(a); }
       };
       paint(0);
       if (head.current) {
@@ -73,7 +69,6 @@ export function EventWorld({ events }: { events: EventItem[] }) {
         ))}
       </div>
       <div className="caption z-20 flex flex-col items-center gap-3 px-6 pb-28 text-center motion-reduce:hidden">
-        <p aria-live="polite" className="font-display text-xl text-white/90">{events[active]?.name}</p>
         <a href="#event-index" className="mt-4 border border-volt px-5 py-3 font-display text-sm">Skip</a>
       </div>
       {open && <EventDetail event={open} festival={festival} onClose={close} />}
