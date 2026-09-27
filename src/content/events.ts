@@ -37,5 +37,15 @@ export const events: EventItem[] = [
   { id: "sound-check", name: "SOUND-CHECK" },
   { id: "space-athon", name: "SPACE-ATHON" },
   { id: "the-crucible", name: "THE CRUCIBLE" },
-  { id: "treasure-hunt", name: "TREASURE HUNT" },
+  {
+    id: "treasure-hunt",
+    name: "TREASURE HUNT",
+    poster: "/assets/events/treasure-hunt.jpg",
+    category: "Photography",
+    description: "Treasure Hunt by Drushyam, the Photography & Film Society. Every frame hides a clue, every clue leads to the treasure.",
+    date: "October 1, 2026",
+    startTime: "1 Oct, 10:00 AM onwards",
+    venue: "ELC, JNU",
+    contact: "Dr. Ankit Kumar Jaiswal (Faculty Coordinator)",
+  },
 ];

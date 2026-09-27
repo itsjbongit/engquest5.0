@@ -2,6 +2,8 @@ import DomeGallery from "./DomeGallery/DomeGallery";
 import type { EventItem } from "@/content/types";
 
 export function EventSpiral({ events }: { events: EventItem[] }) {
+  // Keep the original EQ codes stable (same as the Quest ring). The dome
+  // itself shuffles tile placement client-side, so codes stay correct.
   const items = events.map((e, i) => ({
     id: e.id,
     src: e.poster ?? "",

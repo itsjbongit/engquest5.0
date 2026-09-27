@@ -17,7 +17,7 @@ export function EventDetail({ event: e, festival: f, onClose }: Props) {
 
   const time = e.startTime ? e.startTime + (e.endTime ? ` – ${e.endTime}` : "") : undefined;
   const rows: [string, string | undefined][] = [
-    ["Category", e.category], ["Date", e.date ?? f.date], ["Time", time ?? (f.hours && `Festival hours, ${f.hours}`)],
+    ["Category", e.category], ["Date", e.date ?? f.date], ["Time", time],
     ["Venue", e.venue ?? f.venue], ["Team size", e.teamSize], ["Prize", e.prize], ["Contact", e.contact],
   ];
   const text = e.description ?? e.shortDescription;

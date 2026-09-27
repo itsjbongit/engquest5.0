@@ -1,6 +1,6 @@
 // @ts-nocheck
 'use client';
-import { useEffect, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
 
@@ -25,7 +25,27 @@ const getDataNumber = (el, name, fallback) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-function buildItems(pool, seg) {
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffledWith(rng, arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const tileKey = (t) => t.id ?? `${t.src}|${t.alt}|${t.code}`;
+
+function buildItems(pool, seg, shuffleKey) {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
   const oddYs = [-3, -1, 1, 3, 5];
@@ -37,7 +57,7 @@ function buildItems(pool, seg) {
 
   const totalSlots = coords.length;
   if (pool.length === 0) {
-    return coords.map(c => ({ ...c, src: '', alt: '', code: '' }));
+    return coords.map(c => ({ ...c, id: '', src: '', alt: '', code: '' }));
   }
   if (pool.length > totalSlots) {
     console.warn(
@@ -47,31 +67,81 @@ function buildItems(pool, seg) {
 
   const normalizedImages = pool.map(image => {
     if (typeof image === 'string') {
-      return { src: image, alt: '', code: '' };
+      return { id: image, src: image, alt: '', code: '' };
     }
-    return { src: image.src || '', alt: image.alt || '', code: image.code || '' };
+    return { id: image.id ?? image.src ?? image.alt ?? '', src: image.src || '', alt: image.alt || '', code: image.code || '' };
   });
 
-  const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
+  // Single unique event: adjacency is unavoidable.
+  if (normalizedImages.length === 1) {
+    const only = normalizedImages[0];
+    return coords.map((c) => ({ ...c, src: only.src, alt: only.alt, code: only.code }));
+  }
 
-  for (let i = 1; i < usedImages.length; i++) {
-    if (usedImages[i].src === usedImages[i - 1].src) {
-      for (let j = i + 1; j < usedImages.length; j++) {
-        if (usedImages[j].src !== usedImages[i].src) {
-          const tmp = usedImages[i];
-          usedImages[i] = usedImages[j];
-          usedImages[j] = tmp;
-          break;
-        }
+  // Fill by shuffled rounds so every event appears evenly, in random order,
+  // with no two identical neighbours (compared by event id, not image src,
+  // so distinct events without posters may still sit side by side).
+  const rng = shuffleKey ? mulberry32(shuffleKey) : null;
+  const seq = [];
+  let prevLastKey = null;
+  while (seq.length < totalSlots) {
+    let round = rng ? shuffledWith(rng, normalizedImages) : [...normalizedImages];
+    if (prevLastKey !== null && tileKey(round[0]) === prevLastKey) {
+      const swapIdx = round.findIndex((t) => tileKey(t) !== prevLastKey);
+      if (swapIdx > 0) [round[0], round[swapIdx]] = [round[swapIdx], round[0]];
+    }
+    for (const t of round) {
+      if (seq.length >= totalSlots) break;
+      seq.push(t);
+    }
+    prevLastKey = tileKey(seq[seq.length - 1]);
+  }
+
+  // Fix wrap-around adjacency (dome wraps horizontally): first !== last.
+  if (seq.length > 1 && tileKey(seq[0]) === tileKey(seq[seq.length - 1])) {
+    for (let j = seq.length - 2; j >= 1; j--) {
+      if (tileKey(seq[j]) !== tileKey(seq[0]) && tileKey(seq[j]) !== tileKey(seq[seq.length - 1])) {
+        [seq[j], seq[seq.length - 1]] = [seq[seq.length - 1], seq[j]];
+        break;
       }
     }
   }
 
+  // Safety sweep: eliminate any leftover adjacent duplicates.
+  for (let k = 0; k < 3; k++) {
+    let fixed = true;
+    for (let i = 1; i < seq.length; i++) {
+      if (tileKey(seq[i]) === tileKey(seq[i - 1])) {
+        fixed = false;
+        let swapped = false;
+        for (let j = i + 1; j < seq.length; j++) {
+          if (tileKey(seq[j]) !== tileKey(seq[i]) && tileKey(seq[j]) !== tileKey(seq[i - 1]) &&
+              (j + 1 >= seq.length || tileKey(seq[j + 1]) !== tileKey(seq[i]))) {
+            [seq[i], seq[j]] = [seq[j], seq[i]];
+            swapped = true;
+            break;
+          }
+        }
+        if (!swapped) {
+          // Fallback: swap with previous when nothing ahead works.
+          for (let j = 0; j < i - 1; j++) {
+            if (tileKey(seq[j]) !== tileKey(seq[i]) && tileKey(seq[j + 1]) !== tileKey(seq[i])) {
+              [seq[i], seq[j]] = [seq[j], seq[i]];
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (fixed) break;
+  }
+
   return coords.map((c, i) => ({
     ...c,
-    src: usedImages[i].src,
-    alt: usedImages[i].alt,
-    code: usedImages[i].code
+    id: seq[i].id,
+    src: seq[i].src,
+    alt: seq[i].alt,
+    code: seq[i].code
   }));
 }
 
@@ -133,7 +203,14 @@ export default function DomeGallery({
     document.body.classList.remove('dg-scroll-lock');
   }, []);
 
-  const items = useMemo(() => buildItems(images, segments), [images, segments]);
+  // Randomize per visit on the client only (after hydration) so the SSR HTML
+  // matches the first client render and there's no hydration mismatch.
+  const [shuffleKey, setShuffleKey] = useState(0);
+  useEffect(() => {
+    setShuffleKey(Math.floor(Math.random() * 2147483646) + 1);
+  }, []);
+
+  const items = useMemo(() => buildItems(images, segments, shuffleKey), [images, segments, shuffleKey]);
 
   const applyTransform = (xDeg, yDeg) => {
     const el = sphereRef.current;

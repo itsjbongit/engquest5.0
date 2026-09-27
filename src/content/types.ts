@@ -2,7 +2,7 @@ export interface Person { name: string; role?: string }
 export interface Festival {
   name: string; edition: string; year: number; subtitle?: string;
   school: string; university: string; tagline?: string;
-  date?: string; hours?: string; venue?: string; address?: string;
+  date?: string; venue?: string; address?: string;
   patron?: Person; chairperson?: Person; logo: string;
   copy: { introWords: string[]; contactHeading: string; contactLine: string };
 }
