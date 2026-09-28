@@ -31,10 +31,20 @@ export const events: EventItem[] = [
   { id: "gamepop", name: "GAMEPOP" },
   { id: "guesstimate", name: "GUESSTIMATE" },
   { id: "pitch-a-part", name: "PITCH-A-PART" },
-  { id: "raaz-riwaayat-aur", name: "RAAZ RIWAAYAT AUR" }, // confirm full title with organizers
-  { id: "riwaaz", name: "RIWAAZ" },
+  { id: "raaz-riwaayat-aur", name: "RAAZ RIWAAYATH AUR RIVAAZ" },
   { id: "robo-soccer", name: "ROBO SOCCER" },
-  { id: "sound-check", name: "SOUND-CHECK" },
+  {
+    id: "sound-check",
+    name: "SOUND-CHECK",
+    poster: "/assets/events/sound-check.jpg",
+    category: "Music",
+    description: "Soundcheck — The Ultimate Music Challenge by Bandish, the Music Society. Guess it. Complete it. Challenge it. 3 rounds, teams of 4, one winner.",
+    date: "October 1, 2026",
+    startTime: "1 Oct, 6:30 PM",
+    venue: "J.C. Bose Hall, ELC, SOE, JNU",
+    teamSize: "4",
+    contact: "Bandish — The Music Society",
+  },
   {
     id: "space-athon",
     name: "SPACE-ATHON",
