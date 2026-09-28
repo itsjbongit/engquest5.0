@@ -35,7 +35,11 @@ export const events: EventItem[] = [
   { id: "riwaaz", name: "RIWAAZ" },
   { id: "robo-soccer", name: "ROBO SOCCER" },
   { id: "sound-check", name: "SOUND-CHECK" },
-  { id: "space-athon", name: "SPACE-ATHON" },
+  {
+    id: "space-athon",
+    name: "SPACE-ATHON",
+    poster: "/assets/events/space-athon.jpg",
+  },
   { id: "the-crucible", name: "THE CRUCIBLE" },
   {
     id: "treasure-hunt",
