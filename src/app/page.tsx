@@ -2,6 +2,7 @@ import { CompassNav } from "@/components/navigation/CompassNav";
 import { Hero } from "@/components/hero/Hero";
 import { Intro } from "@/components/intro/Intro";
 import { Countdown } from "@/components/countdown/Countdown";
+import { ScheduleSection } from "@/components/schedule/ScheduleSection";
 import { EventWorld } from "@/components/event-world/EventWorld";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { EventSpiral } from "@/components/event-spiral/EventSpiral";
@@ -18,6 +19,7 @@ export default function Page() {
         <Hero />
         <Intro />
         <Countdown />
+        <ScheduleSection />
         <EventWorld events={events} />
         <EventSpiral events={events} />
         <ContactSection />

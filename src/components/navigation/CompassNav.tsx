@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { festival as f } from "@/content/festival";
 
-const links = [["About", "#intro"], ["Events", "#quest"], ["Contact", "#contact"]] as const;
+const links = [["About", "#intro"], ["Schedule", "#schedule"], ["Events", "#quest"], ["Contact", "#contact"]] as const;
 
 export function CompassNav() {
   return (
