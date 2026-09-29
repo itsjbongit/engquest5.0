@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Chakra_Petch, IBM_Plex_Sans } from "next/font/google";
 import { festival as f } from "@/content/festival";
 import SplashCursor from "@/components/SplashCursor/SplashCursor";
+import { WrenchCursor } from "@/components/cursor/WrenchCursor";
 import { ScrollSetup } from "@/components/ui/ScrollSetup";
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ScrollSetup />
         {children}
+        <WrenchCursor />
         <SplashCursor COLOR="#6705c5" />
       </body>
     </html>

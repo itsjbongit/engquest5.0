@@ -17,9 +17,36 @@ body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smooth
 ::-webkit-scrollbar-track { background: #061827; }
 ::-webkit-scrollbar-thumb { background: #00a8ff; border-radius: 8px; border: 2px solid #061827; }
 ::-webkit-scrollbar-thumb:hover { background: #4dc4ff; }
-.draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+/* Custom wrench cursor — PC (fine pointer) only, matches site theme.
+   Native SVG fallback applies immediately; the React follower in
+   WrenchCursor.tsx takes over and hides the native cursor via .custom-cursor. */
+@media (pointer: fine) {
+  body, body a, body button, body [role="button"], body summary, body label, body select {
+    cursor: url("/cursors/wrench.svg") 4 9, pointer;
+  }
+  html.custom-cursor, html.custom-cursor * { cursor: none !important; }
+  /* Keep an I-beam where people type; the wrench follower hides itself there. */
+  html.custom-cursor input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  html.custom-cursor textarea,
+  html.custom-cursor [contenteditable="true"] { cursor: text !important; }
+}
+
+.wrench-cursor {
+  position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none;
+  transition: opacity 0.18s ease; will-change: transform;
+}
+.wrench-cursor__wrench {
+  position: absolute; left: 0; top: 0;
+  filter: drop-shadow(0 0 7px rgb(0 168 255 / 0.6));
+  transition: opacity 0.15s ease, scale 0.15s ease;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wrench-cursor, .wrench-cursor__wrench { transition: none; }
+}
 
 /* Event world: a cylinder of faces; --w/--r are set from JS to fit the viewport */
+.draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
 .world {
   --w: min(260px, 60vw); --r: 700px; height: 100svh; perspective: 1400px; overflow: hidden;
   background:
