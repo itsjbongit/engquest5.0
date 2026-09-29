@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import { festival as f } from "@/content/festival";
+import { jumpToId } from "@/components/ui/ScrollButtons";
 
 const links = [["About", "#intro"], ["Schedule", "#schedule"], ["Events", "#quest"], ["Contact", "#contact"]] as const;
 
@@ -12,7 +14,21 @@ export function CompassNav() {
             <Image src={f.logo} alt="" width={48} height={48} className="size-full object-contain" priority />
           </a>
           <ul className="flex gap-5 font-display text-sm tracking-wide">
-            {links.map(([label, href]) => <li key={href}><a href={href} className="py-2">{label}</a></li>)}
+            {links.map(([label, href]) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="py-2"
+                  onClick={
+                    href === "#contact"
+                      ? (e) => { e.preventDefault(); jumpToId("contact"); }
+                      : undefined
+                  }
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

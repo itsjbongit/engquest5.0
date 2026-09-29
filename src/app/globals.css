@@ -10,6 +10,13 @@ html, body { overflow-x: clip; }
 }
 body { font-family: var(--font-body), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 :focus-visible { outline: 2px solid #00a8ff; outline-offset: 3px; }
+
+/* Scrollbars to match the site: deep track, volt thumb */
+* { scrollbar-width: thin; scrollbar-color: #00a8ff #061827; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #061827; }
+::-webkit-scrollbar-thumb { background: #00a8ff; border-radius: 8px; border: 2px solid #061827; }
+::-webkit-scrollbar-thumb:hover { background: #4dc4ff; }
 .draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
 
 /* Event world: a cylinder of faces; --w/--r are set from JS to fit the viewport */

@@ -146,7 +146,7 @@ export function ScheduleSection() {
         </div>
 
         <div className="mt-10 overflow-x-auto border border-white/10 bg-black/50 backdrop-blur-sm">
-          <table className="w-full min-w-[760px] border-collapse text-left">
+          <table className="w-full min-w-[760px] border-collapse text-center">
             <caption className="sr-only">
               EngQuest run of show on 1 October 2026 by time and venue
             </caption>

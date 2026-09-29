@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { EventItem } from "@/content/types";
 import { festival } from "@/content/festival";
+import { jumpToId } from "@/components/ui/ScrollButtons";
 import { EventCard } from "./EventCard";
 import { EventDetail } from "./EventDetail";
 
@@ -159,9 +160,8 @@ export function EventWorld({ events }: { events: EventItem[] }) {
         <span className="world-axis" />
         <span className="world-rule top" />
       </div>
-      <div ref={head} className="absolute inset-x-0 top-24 z-10 px-6 text-center pointer-events-none">
-        <p className="font-display text-[11px] tracking-[0.35em] text-volt/80">EVENTS</p>
-        <h2 id="quest-h" className="mt-2 font-display text-3xl font-bold uppercase tracking-wide md:text-5xl">The Quest</h2>
+      <div ref={head} className="absolute inset-x-0 top-6 z-10 px-6 text-center pointer-events-none">
+        <h2 id="quest-h" className="font-display text-3xl font-bold uppercase tracking-wide md:text-5xl">The Quest</h2>
         <p className="mt-2 font-display text-[11px] tracking-[0.25em] text-white/50 motion-reduce:hidden">SCROLL OR DRAG ⟷</p>
       </div>
       <div ref={ring} className={`ring absolute inset-0 ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
@@ -176,7 +176,7 @@ export function EventWorld({ events }: { events: EventItem[] }) {
         <div className="flex items-center gap-3">
           <button type="button" onClick={() => stepRef.current(-1)} aria-label="Previous event"
             className="border border-volt/60 px-4 py-3 font-display text-sm hover:bg-volt hover:text-black">←</button>
-          <a href="#event-index" className="border border-volt px-5 py-3 font-display text-sm">Skip</a>
+          <a href="#event-index" onClick={(e) => { e.preventDefault(); jumpToId("event-index"); }} className="border border-volt px-5 py-3 font-display text-sm">Skip</a>
           <button type="button" onClick={() => stepRef.current(1)} aria-label="Next event"
             className="border border-volt/60 px-4 py-3 font-display text-sm hover:bg-volt hover:text-black">→</button>
         </div>
