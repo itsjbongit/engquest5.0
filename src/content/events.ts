@@ -2,7 +2,14 @@ import type { EventItem } from "./types";
 
 // Names as printed on the official poster. Add poster, description, category, time, etc. per event; empty fields stay hidden.
 export const events: EventItem[] = [
-  { id: "ad-act", name: "AD ACT", poster: "/assets/events/ad-act.jpg" },
+  {
+    id: "ad-act",
+    name: "AD ACT",
+    poster: "/assets/events/ad-act.jpg",
+    category: "Dramatics",
+    description: "AD ACT by Abhinay, The Dramatics Society.",
+    contact: "Abhinay — The Dramatics Society",
+  },
   { id: "aerius", name: "AERIUS" },
   {
     id: "blind-coding",
@@ -51,7 +58,18 @@ export const events: EventItem[] = [
     contact: "Dr. Rituraj Singh / Turbash Negi (7078960722), Aarush Mittal (8077882726)",
   },
   { id: "guesstimate", name: "GUESSTIMATE" },
-  { id: "pitch-a-part", name: "PITCH-A-PART" },
+  {
+    id: "pitch-a-part",
+    name: "PITCH-A-PART",
+    poster: "/assets/events/pitch-a-part.jpeg",
+    category: "Entrepreneurship",
+    description: "Pitch-A-Part — A Business-Model Deep-Dive Round by Phoenix, The Entrepreneurship Club. Research. Defend. Pitch like you built it.",
+    date: "October 1, 2026",
+    startTime: "1 Oct, 4:00 PM",
+    endTime: "1 Oct, 5:30 PM",
+    venue: "Ramanujan, ELC, JNU",
+    contact: "Phoenix — The Entrepreneurship Club",
+  },
   {
     id: "raaz-riwaayat-aur-riwaaz",
     name: "RAAZ, RIWAAYAT AUR RIWAAZ",
@@ -81,6 +99,13 @@ export const events: EventItem[] = [
     id: "space-athon",
     name: "SPACE-ATHON",
     poster: "/assets/events/space-athon.jpg",
+    category: "Space",
+    description: "Space-athon — Elimination Round by Antariksh, the Space Club.",
+    date: "September 28, 2026",
+    startTime: "28 Sept, 6:00 PM",
+    endTime: "28 Sept, 7:00 PM",
+    venue: "Janki Ammal Hall, ELC, JNU",
+    contact: "Antariksh — The Space Club",
   },
   {
     id: "the-crucible",
