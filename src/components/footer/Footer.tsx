@@ -11,7 +11,7 @@ export function Footer() {
       </div>
       <nav aria-label="School links" className="flex flex-wrap gap-x-6 gap-y-2 md:ml-auto">
         <a href="https://soe.jnu.ac.in/" target="_blank" rel="noreferrer" className="underline underline-offset-4">SoE Website</a>
-        <a href="https://www.instagram.com/soe_jnu?stkn=cDc5czk0b2ttNjYz" target="_blank" rel="noreferrer" className="underline underline-offset-4">Instagram</a>
+        <a href="https://www.instagram.com/engquest5.0?stkn=bTQwdHM1ZDNzYTBx" target="_blank" rel="noreferrer" className="underline underline-offset-4">Instagram</a>
       </nav>
     </footer>
   );
