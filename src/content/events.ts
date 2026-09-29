@@ -2,7 +2,7 @@ import type { EventItem } from "./types";
 
 // Names as printed on the official poster. Add poster, description, category, time, etc. per event; empty fields stay hidden.
 export const events: EventItem[] = [
-  { id: "ad-act", name: "AD ACT" },
+  { id: "ad-act", name: "AD ACT", poster: "/assets/events/ad-act.jpg" },
   { id: "aerius", name: "AERIUS" },
   {
     id: "blind-coding",
