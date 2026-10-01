@@ -55,7 +55,11 @@ export const events: EventItem[] = [
     endTime: "1 Oct, 11:00 AM",
     venue: "Online (Kaggle)",
   },
-  { id: "core-of-everything", name: "CORE OF EVERYTHING" },
+  {
+    id: "core-of-everything",
+    name: "CORE OF EVERYTHING",
+    poster: "/assets/events/temp.jpg",
+  },
   {
     id: "gamepop",
     name: "GAMEPOP",
