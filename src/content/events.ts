@@ -104,7 +104,17 @@ export const events: EventItem[] = [
     venue: "JC Bose Hall, ELC, JNU",
     contact: "MegaWhats — JNU School of Engineering",
   },
-  { id: "robo-soccer", name: "ROBO SOCCER" },
+  {
+    id: "robo-soccer",
+    name: "ROBO SOCCER",
+    poster: "/assets/events/robo-soccer.jpg",
+    category: "Robotics",
+    description: "Robo Car Workshop by DeRobotica — Innovate | Build | Program. Hands-on workshop to build and program your own robo car.",
+    date: "September 23, 2026",
+    startTime: "23 Sept, 4:30 PM",
+    venue: "JC Bose Hall, ELC, JNU",
+    contact: "Dr. G. Renuka Devi, Dr. Pushpendra Singh",
+  },
   {
     id: "sound-check",
     name: "SOUND-CHECK",
